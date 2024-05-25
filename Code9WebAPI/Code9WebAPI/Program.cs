@@ -15,6 +15,7 @@ builder.Services.AddDbContext<CinemaDbContext>(options =>
 
 builder.Services.AddScoped<ICinemaRepository, CinemaRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IDbContext, CinemaDbContext>();
 
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(AddCinemaCommand).Assembly));
 

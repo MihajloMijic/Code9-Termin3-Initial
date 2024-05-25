@@ -6,46 +6,40 @@ namespace Code9.Infrastructure.Repositories;
 
 public class CinemaRepository : ICinemaRepository
 {
-    private readonly CinemaDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     
     public CinemaRepository(
-        CinemaDbContext dbContext)
+        IDbContext dbContext)
     {
         _dbContext = dbContext;
     }
     
     public async Task<List<Cinema>> GetAllCinema()
     {
-        return await _dbContext.Cinema.ToListAsync();
+        return await _dbContext.GetAllCinema();
     }
 
     public async Task<Cinema> AddCinema(Cinema cinema)
     {
-        _dbContext.Cinema.Add(cinema);
-
-        await _dbContext.SaveChangesAsync();
+        _dbContext.AddCinema(cinema);
 
         return cinema;
     }
 
     public async Task<Cinema> UpdateCinema(Cinema cinema)
     {
-        _dbContext.Update(cinema);
-
-        await _dbContext.SaveChangesAsync();
+        _dbContext.UpdateCinema(cinema);
 
         return cinema;
     }
 
     public async Task DeleteCinema(Cinema cinema)
     {
-        _dbContext.Remove(cinema);
-
-        await _dbContext.SaveChangesAsync();
+        _dbContext.DeleteCinema(cinema);
     }
 
     public async Task<Cinema> GetCinema(Guid id)
     {
-        return await _dbContext.Cinema.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.GetCinema(id);
     }
 }
